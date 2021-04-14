@@ -3,13 +3,13 @@
 - Есть ли административный доступ в кластер Kubernetes, в котором будет производиться работа, с данного бастион-хоста
 - Установлен ли на бастион-хосте Ansible. Если нет - необходимо установить по [данному руководству](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible)
 
-## Как развернуть манифест:
+# Как развернуть манифест:
 
-### Устанавливаем модуль Ansible community-kubernetes:
+## Устанавливаем модуль Ansible community-kubernetes:
 
 `ansible-galaxy collection install community.kubernetes`
 
-### Копируем на бастион-хост файл авторизации в кластере Kubernetes
+## Копируем на бастион-хост файл авторизации в кластере Kubernetes
 
 Авторизуемся в нужном кластере Kubernetes:
 `kubectl login <адрес API-сервера> -u логин -p пароль`
@@ -23,7 +23,7 @@
 Скопировать файл с контекстом на бастион-хост:
 `scp -pr ~/.kube/config <имя пользователя на бастион-хосте>@<имя или адрес бастион-хоста>:/home/.kube/config`
 
-### Развертывание Redis:
+## Развертывание Redis:
 
 `ansible-playbook install-redis.yaml`
 
@@ -41,7 +41,7 @@ welltory-redis-slave-1    2/2     Running   0          2m16s
 
 `2/2` в поле работающих контейнеров в поде означает, что запустились сайдкары Prometheus exporter - компонента, который и будет отдавать метрики Redis
 
-### Развертывание Prometheus:
+## Развертывание Prometheus:
 
 `ansible-playbook install-prometheus.yaml`
 

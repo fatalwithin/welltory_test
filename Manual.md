@@ -9,9 +9,23 @@
 
 `ansible-galaxy collection install community.kubernetes`
 
+### Копируем на бастион-хост файл авторизации в кластере Kubernetes
+
+Авторизуемся в нужном кластере Kubernetes:
+`kubectl login <адрес API-сервера> -u логин -p пароль`
+
+Проверяем текущие контексты на локальной машине:
+`kubectl config get-contexts`
+
+Задать контекст нужного кластера, если кластеров в контексте несколько:
+`kubectl config use-context my-cluster-name`
+
+Скопировать файл с контекстом на бастион-хост:
+`scp -pr ~/.kube/config <имя пользователя на бастион-хосте>@<имя или адрес бастион-хоста>:/home/.kube/config`
+
 ### Развертывание Redis:
 
-`some command`
+`ansible-playbook install-redis.yaml`
 
 Проверяем, что поды Redis запущены:
 
@@ -29,7 +43,7 @@ welltory-redis-slave-1    2/2     Running   0          2m16s
 
 ### Развертывание Prometheus:
 
-`some command`
+`ansible-playbook install-prometheus.yaml`
 
 Проверяем, что поды Prometheus запущены:
 
@@ -50,6 +64,16 @@ welltory-prometheus-server-77ff45bc6-shrmd               2/2     Running   0    
 
 Добавлять снятие метрик для развернутых сайдкар-контейнеров redis-exporter в конфигурацию Prometheus не нужно, так как он по умолчанию содержит kubernetes_sd_configs, обеспечивающий Service Discovery. За счёт этого динамически подключается сбор метрик для вновь появившихся подов. 
 
+Для тестовых целей можно проверить работу веб-интерфейса Prometheus с помощью **port-forward** - выполнять нужно уже на своей рабочей станции, а не на бастион-узле:
+
+```
+export POD_NAME=$(kubectl get pods --namespace monitoring -l "app=welltory-prometheus,component=server" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace monitoring port-forward $POD_NAME 9090
+```
+
+Теперь открываем http://127.0.0.1:9090/ в браузере — и видим интерфейс Prometheus.
+Проверить работоспособность мониторинга Redis можно, например, введя `redis_up` в поле **Query**.
+
 ## Как изменить версию у Prometheus:
 
 Для начала нужно выполнить обновление helm-чарта, с помощью которого развертывался Prometheus:
@@ -58,5 +82,4 @@ welltory-prometheus-server-77ff45bc6-shrmd               2/2     Running   0    
 Prometheus у нас развертывается в виде контейнера, образ контейнера находится по следующему адресу: `http://quay.io/prometheus/prometheus`
 Ищем тег нужного образа и данное значение тега прописываем вот [сюда](https://github.com/fatalwithin/welltory_test/blob/524769ec2955e4651d221748463a6569106d2c6a/playbooks/roles/install-prometheus/vars/main.yml#L2) взамен исходного.
 
-Далее - запускаем процедуру развертывания Prometheus:
-`some commands`
+Далее - запускаем процедуру развертывания Prometheus заново, как в пункте выше.

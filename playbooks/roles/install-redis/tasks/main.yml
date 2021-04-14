@@ -1,7 +1,7 @@
 
 - name: Deploy latest version of Bitnami Redis into redis namespace
   community.kubernetes.helm:
-    name: welltory
+    name: welltory-redis
     chart_ref: bitnami/redis
     release_namespace: redis
     create_namespace: true

@@ -8,7 +8,7 @@ spec:
   template:
     metadata:
       annotations:
-        prometheus.io/scrape: "true"
+        prometheus.io/scrape: "true" # позволяет скрейпинг метрик Прометеем.
       labels:
         app: redis
     spec:

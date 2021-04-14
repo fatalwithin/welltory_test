@@ -5,6 +5,10 @@
 
 ## Как развернуть манифест:
 
+### Устанавливаем модуль Ansible community-kubernetes:
+
+`ansible-galaxy collection install community.kubernetes`
+
 ### Развертывание Redis:
 
 `some command`

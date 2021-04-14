@@ -48,6 +48,8 @@ welltory-prometheus-pushgateway-6694855f-n6xwt           1/1     Running   0    
 welltory-prometheus-server-77ff45bc6-shrmd               2/2     Running   0          76s
 ```
 
+Добавлять снятие метрик для развернутых сайдкар-контейнеров redis-exporter в конфигурацию Prometheus не нужно, так как он по умолчанию содержит kubernetes_sd_configs, обеспечивающий Service Discovery. За счёт этого динамически подключается сбор метрик для вновь появившихся подов. 
+
 ## Как изменить версию у Prometheus:
 
 Для начала нужно выполнить обновление helm-чарта, с помощью которого развертывался Prometheus:

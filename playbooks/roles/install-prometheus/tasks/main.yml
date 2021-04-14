@@ -7,3 +7,8 @@
       values:
         server.retentionTime: {{ Prometheus_retention_days }}
         image.tag: {{ Prometheus_version }}
+        
+- name: Enabling RBAC for Prometheus
+  community.kubernetes.k8s:
+    state: present
+    template: '/templates/prometheus-rbac.yml.j2'

@@ -1,0 +1,23 @@
+
+- name: Deploy latest version of Bitnami Redis into redis namespace
+  community.kubernetes.helm:
+    name: welltory-redis
+    chart_ref: bitnami/redis
+    release_namespace: redis
+    create_namespace: true
+    values:
+      usePassword: false
+      cluster.enabled: true
+      cluster.slaveCount: 2
+      metrics.enabled: true
+      master.persistence.enabled: false 
+      slave.persistence.enabled: false
+      sentinel.enabled: true
+      sentinel.usePassword: false
+      sentinel.masterSet: master
+      sentinel.quorum: 2
+      sentinel.port: 26379
+      configmap: |-
+        databases {{ redis-databases }}
+        protected-mode no
+      

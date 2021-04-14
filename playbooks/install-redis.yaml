@@ -12,5 +12,6 @@
     name: openshift
     state: present
 
-  tasks:
+  roles:
+    - install-redis
   

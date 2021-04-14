@@ -5,9 +5,25 @@
 
 ## Как развернуть манифест:
 
-Развертывание Redis:
+### Развертывание Redis:
 
-Развертывание Prometheus:
+`some command`
+
+Проверяем, что поды Redis запущены:
+
+`kubectl get pods -n redis`
+
+Вывод команды должен быть примерно такой:
+
+```
+redis-master-0   2/2     Running   0          3m40s
+redis-slave-0    2/2     Running   0          2m4s
+redis-slave-1    2/2     Running   0          2m16s 
+```
+
+`2/2` в поле работающих контейнеров в поде означает, что запустились сайдкары Prometheus exporter - компонента, который и будет отдавать метрики Redis
+
+### Развертывание Prometheus:
 
 
 

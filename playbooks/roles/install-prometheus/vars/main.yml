@@ -1,1 +1,2 @@
 Prometheus_retention_days: "7d"
+Prometheus_version: "v2.26.0"

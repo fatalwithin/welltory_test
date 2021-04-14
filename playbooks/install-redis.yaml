@@ -5,4 +5,12 @@
   become_method: sudo
 
   pre_tasks:
-  - name: "Copy Kubernetes context to bastion host"
+  - name: Copy Kubernetes context to bastion host
+  
+  - name: Ensure K8s module dependencies are installed.
+  pip:
+    name: openshift
+    state: present
+
+  tasks:
+  

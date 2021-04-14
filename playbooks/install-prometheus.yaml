@@ -1,1 +1,14 @@
-test
+---
+- hosts: bastion
+  gather_facts: no
+  become: true
+  become_method: sudo
+
+  pre_tasks:
+  - name: Ensure K8s module dependencies are installed.
+  pip:
+    name: openshift
+    state: present
+
+  roles:
+    - install-prometheus

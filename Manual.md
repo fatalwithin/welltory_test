@@ -16,16 +16,33 @@
 Вывод команды должен быть примерно такой:
 
 ```
-redis-master-0   2/2     Running   0          3m40s
-redis-slave-0    2/2     Running   0          2m4s
-redis-slave-1    2/2     Running   0          2m16s 
+welltory-redis-master-0   2/2     Running   0          3m40s
+welltory-redis-slave-0    2/2     Running   0          2m4s
+welltory-redis-slave-1    2/2     Running   0          2m16s 
 ```
 
 `2/2` в поле работающих контейнеров в поде означает, что запустились сайдкары Prometheus exporter - компонента, который и будет отдавать метрики Redis
 
 ### Развертывание Prometheus:
 
+`some command`
 
+Проверяем, что поды Prometheus запущены:
+
+`kubectl get pods -n monitoring`
+
+Вывод команды должен быть примерно такой:
+
+```
+NAME                                               READY   STATUS    RESTARTS   AGE
+welltory-prometheus-alertmanager-86986878b5-5w2vw        2/2     Running   0          76s
+welltory-prometheus-kube-state-metrics-dc694d6d7-xk85n   1/1     Running   0          76s
+welltory-prometheus-node-exporter-grgqw                  1/1     Running   0          76s
+welltory-prometheus-node-exporter-njksq                  1/1     Running   0          76s
+welltory-prometheus-node-exporter-pcmgv                  1/1     Running   0          76s
+welltory-prometheus-pushgateway-6694855f-n6xwt           1/1     Running   0          76s
+welltory-prometheus-server-77ff45bc6-shrmd               2/2     Running   0          76s
+```
 
 ## Как изменить версию у Prometheus:
 

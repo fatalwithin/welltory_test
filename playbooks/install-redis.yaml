@@ -1,1 +1,8 @@
-test
+---
+- hosts: bastion
+  gather_facts: no
+  become: true
+  become_method: sudo
+
+  pre_tasks:
+  - name: "Copy Kubernetes context to bastion host"

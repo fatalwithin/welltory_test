@@ -5,5 +5,5 @@
     release_namespace: monitoring
     create_namespace: true
       values:
-        server:
-          retentionTime: {{ Prometheus_retention_days }}
+        server.retentionTime: {{ Prometheus_retention_days }}
+        image.tag: {{ Prometheus_version }}
